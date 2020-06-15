@@ -1,17 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @post.content %>
-</p>
-
-<p>
-  Tags:
-  <% @post.tags.each do |tag| %>
-    <%= link_to tag.name, tag_path(tag) %>
-  <% end %>
-</p>
-
 <% if @post.image.attached? %>
 <!-- @post.image.present? will always return true, use attached? to check presence -->
   <p>
@@ -23,3 +9,37 @@
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
+
+<article class="container show-body">
+  <div class="header">
+    <div class="categories">
+      <span>Categorie(s):</span>
+      <div class="buttons">
+        <% @post.tags.each do |tag| %>
+          <button>
+            <%= link_to tag.name, tag_path(tag) %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="image">
+    <% if @post.image.exists? %>
+      <%= image_tag @post.image.url %>
+    <% end %>
+  </div>
+  <div class="details">
+    <div class="para">
+      <p>
+        <strong>Details :</strong>
+        <%= @post.content %>
+      </p>
+    </div>
+    <div class="comment">
+      <%= render 'comments/comment' %>
+      <%= render 'comments/form' %>
+    </div>
+  </div>
+  <%= link_to 'Back', posts_path %>
+
+</article>
