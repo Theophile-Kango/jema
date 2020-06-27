@@ -1,9 +1,10 @@
 <header class="container-fluid">
     <nav>
         <ul>
-            <h2><%= link_to 'Beta ecommission', root_path %></h2>
+            <h2><%= link_to 'Jema', root_path %></h2>
             <div class="logged">
                 <% if current_user %>
+                    <li><%= link_to 'Posts', posts_path %></li>
                     <li><%= link_to 'Edit profile', edit_user_registration_path  %></li>
                     <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
                     <li><%= image_tag current_user.gravatar_url, :class => "gravatar" %></li>

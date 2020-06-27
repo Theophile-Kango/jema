@@ -67,6 +67,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def my_posts
+    @posts = current_user.posts
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -79,7 +83,7 @@ class PostsController < ApplicationController
     end
 
     def user_authorization
-      return if current_user.articles.find_by_id(params[:id])
+      return if current_user.posts.find_by_id(params[:id])
       flash.alert = 'authorize author only'
       redirect_to :root
     end

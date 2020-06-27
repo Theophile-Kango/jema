@@ -1,28 +1,36 @@
-<%= form_with(model: post, local: true) do |form| %>
+<%= form_with(model: post, local: true, html: {multipart: true}) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <h2><%= pluralize(article.errors.count, "error") %> prohibited this post from being saved:</h2>
 
       <ul>
-      <% post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :tag_list %>
+    <%= form.label :body %>
+    <%= form.text_area :body, class: 'text-area' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tag_list, 'categorie(s)' %>
     <%= form.text_field :tag_list %>
   </div>
 
-  <div class="field">
-    <%= form.label :image %>
+  <div class="image">
+    <% if @post.image.attached? %>
+        <%= image_tag @post.image.url %><br/>
+    <% end %>
+    <%= form.label :image, "Attach a New Image" %>
     <%= form.file_field :image %>
   </div>
 
