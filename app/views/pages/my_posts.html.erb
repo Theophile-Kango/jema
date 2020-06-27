@@ -1,38 +1,17 @@
 
 <div class="container-fluid">
-  <div class="top-articles">
-    <% @firsts.each do |post| %>
-      <article class="first-post">
-          <div class="figure">
-            <p><%= post.content %></p>
-            <% post.tags.each do |tag| %>
-              <button><%= link_to tag.name, tag_path(tag) %></button>
-            <% end %>
-            <figure>
-              <% if post.image.exists? %>
-                <%= image_tag post.image.url %>
-              <% end %>
-            </figure>
-            
-          </div>
-      </article>
-    <% end %>
-  </div>
-  
   <article class="container index-body">
     <% @posts.each do |post| %>
       <section>
-        <%= image_tag url_for(@post.image) %>
+        <%= image_tag url_for(post.image) %>
         <p><%= post.content %></p>
         <small>has <%= pluralize(post.comments.count, 'comment') %></small>
         <small>Posted <%= "by #{ post.user.user_name }"%>
         <%= time_ago_in_words(post.created_at) unless post.created_at.blank? %> ago</small>
         <div class="buttons">
-          <% if current_user &&  current_user.id == post.user_id %>
-            <button id="edit"><%= link_to 'Edit', edit_article_path(post) %></button>
+            <button id="edit"><%= link_to 'Edit', edit_post_path(post) %></button>
             <button id="destroy"><%= link_to 'Destroy', post, 
             method: :delete, data: { confirm: 'Are you sure?' } %></button>
-          <% end %>
           <button><%= link_to 'Show', post %></button><br>
           <h4>Categorie(s)</h4>
           <% post.tags.each do |tag| %>
